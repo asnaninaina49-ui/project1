@@ -1,0 +1,9 @@
+body { background: #f5f7fb; color: #202633; min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1; }
+.hero { background: linear-gradient(120deg, #eaf2ff, #f8fbff); border: 1px solid #dbe7ff; }
+.notice-card { border: 0; border-top: 3px solid #0d6efd; transition: transform .15s ease, box-shadow .15s ease; }
+.notice-card:hover { transform: translateY(-2px); }
+.auth-card { max-width: 480px; }
+.form-card { max-width: 850px; margin: auto; }
+.notice-description { white-space: pre-line; line-height: 1.75; }
+.navbar .btn { white-space: nowrap; }

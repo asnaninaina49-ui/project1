@@ -1,0 +1,23 @@
+@model IEnumerable<Notice>
+@{ ViewData["Title"] = "All Notices"; }
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+ <div><h1 class="h2 mb-1">Community Notices</h1><p class="text-muted mb-0">Search notices by title, details, or category.</p></div>
+ @if (User.IsInRole("Admin")) { <a class="btn btn-primary" asp-action="Create">+ Publish notice</a> }
+</div>
+<form method="get" class="row g-2 mb-4">
+ <div class="col-md-6"><input name="search" value="@ViewBag.Search" class="form-control" placeholder="Search notices..." /></div>
+ <div class="col-md-3"><select name="category" class="form-select"><option value="">All categories</option>@foreach (string cat in ViewBag.Categories) { <option value="@cat" selected="@(cat == (string?)ViewBag.Category)">@cat</option> }</select></div>
+ <div class="col-md-3 d-flex gap-2"><button class="btn btn-outline-primary">Search</button><a class="btn btn-outline-secondary" asp-action="Index">Reset</a></div>
+</form>
+<div class="table-responsive">
+<table class="table table-hover align-middle bg-white">
+<thead class="table-light"><tr><th>Title</th><th>Category</th><th>Published</th><th>Priority</th><th>Actions</th></tr></thead>
+<tbody>
+@foreach (var n in Model) {
+<tr><td><strong>@n.Title</strong><div class="small text-muted">@(n.Description.Length > 85 ? n.Description[..85] + "..." : n.Description)</div></td><td>@n.Category</td><td>@n.PublishedOn.ToString("dd MMM yyyy")</td><td>@if(n.IsImportant){<span class="badge text-bg-danger">Important</span>}else{<span class="badge text-bg-secondary">Normal</span>}</td>
+<td class="text-nowrap"><a asp-action="Details" asp-route-id="@n.Id" class="btn btn-sm btn-outline-primary">View</a>
+@if (User.IsInRole("Admin")) { <a asp-action="Edit" asp-route-id="@n.Id" class="btn btn-sm btn-outline-secondary">Edit</a><a asp-action="Delete" asp-route-id="@n.Id" class="btn btn-sm btn-outline-danger">Delete</a> }
+</td></tr>
+}
+@if (!Model.Any()) { <tr><td colspan="5" class="text-center py-4">No notices found.</td></tr> }
+</tbody></table></div>

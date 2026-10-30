@@ -1,0 +1,9 @@
+@model Notice
+@{ ViewData["Title"] = "Notice Details"; }
+<article class="card shadow-sm"><div class="card-body p-4">
+<div class="mb-3"><span class="badge text-bg-secondary">@Model.Category</span> @if(Model.IsImportant){<span class="badge text-bg-danger">Important</span>}</div>
+<h1 class="h2">@Model.Title</h1><p class="text-muted">Published on @Model.PublishedOn.ToString("dd MMMM yyyy")</p>
+<hr /><p class="notice-description">@Model.Description</p>
+@if (!string.IsNullOrWhiteSpace(Model.AttachmentUrl)) { <p><a href="@Model.AttachmentUrl" target="_blank" rel="noopener">Open attachment / reference</a></p> }
+<div class="mt-4 d-flex gap-2"><a asp-action="Index" class="btn btn-outline-secondary">Back to notices</a>@if(User.IsInRole("Admin")){<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>}</div>
+</div></article>

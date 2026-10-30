@@ -1,0 +1,8 @@
+@model Notice
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<div class="mb-3"><label asp-for="Title" class="form-label"></label><input asp-for="Title" class="form-control" /><span asp-validation-for="Title" class="text-danger"></span></div>
+<div class="mb-3"><label asp-for="Category" class="form-label"></label><select asp-for="Category" class="form-select"><option>General</option><option>Examination</option><option>Holiday</option><option>Event</option><option>Fee Reminder</option><option>Meeting</option><option>Emergency</option></select><span asp-validation-for="Category" class="text-danger"></span></div>
+<div class="mb-3"><label asp-for="Description" class="form-label"></label><textarea asp-for="Description" rows="5" class="form-control"></textarea><span asp-validation-for="Description" class="text-danger"></span></div>
+<div class="mb-3"><label asp-for="PublishedOn" class="form-label"></label><input asp-for="PublishedOn" class="form-control" type="date" /><span asp-validation-for="PublishedOn" class="text-danger"></span></div>
+<div class="mb-3"><label asp-for="AttachmentUrl" class="form-label"></label><input asp-for="AttachmentUrl" class="form-control" placeholder="Optional link to PDF or official page" /><span asp-validation-for="AttachmentUrl" class="text-danger"></span></div>
+<div class="form-check mb-3"><input asp-for="IsImportant" class="form-check-input" /><label asp-for="IsImportant" class="form-check-label"></label></div>

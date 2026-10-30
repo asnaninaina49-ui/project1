@@ -1,0 +1,37 @@
+@model IEnumerable<Notice>
+@{
+    ViewData["Title"] = "Home";
+}
+<section class="hero rounded-4 p-4 p-md-5 mb-4">
+ <h1 class="display-5 fw-bold">One board. Every important update.</h1>
+ <p class="lead">Find college, society, and community announcements in one convenient place.</p>
+ @if (User.Identity?.IsAuthenticated == true) {
+   <a class="btn btn-primary btn-lg" asp-controller="Notices" asp-action="Index">Browse all notices</a>
+ } else {
+   <a class="btn btn-primary btn-lg" asp-controller="Account" asp-action="Register">Join / Register</a>
+   <a class="btn btn-outline-primary btn-lg ms-2" asp-controller="Account" asp-action="Login">Login</a>
+ }
+</section>
+<div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h3">Latest notices</h2>
+@if (User.Identity?.IsAuthenticated == true) { <a asp-controller="Notices" asp-action="Index">View all →</a> }
+</div>
+<div class="row g-3">
+@foreach (var notice in Model) {
+ <div class="col-md-6 col-lg-4">
+  <article class="card notice-card h-100 shadow-sm">
+   <div class="card-body">
+    @if (notice.IsImportant) { <span class="badge text-bg-danger mb-2">Important</span> }
+    <span class="badge text-bg-secondary mb-2">@notice.Category</span>
+    <h3 class="h5">@notice.Title</h3>
+    <p class="text-muted small">@notice.PublishedOn.ToString("dd MMM yyyy")</p>
+    <p>@(notice.Description.Length > 130 ? notice.Description[..130] + "..." : notice.Description)</p>
+    @if (User.Identity?.IsAuthenticated == true) {
+      <a class="btn btn-sm btn-outline-primary" asp-controller="Notices" asp-action="Details" asp-route-id="@notice.Id">Read notice</a>
+    } else {
+      <a class="btn btn-sm btn-outline-primary" asp-controller="Account" asp-action="Login">Login to read</a>
+    }
+   </div>
+  </article>
+ </div>
+}
+</div>

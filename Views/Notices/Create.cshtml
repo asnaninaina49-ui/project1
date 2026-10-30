@@ -1,0 +1,8 @@
+@model Notice
+@{ ViewData["Title"] = "Publish Notice"; }
+<div class="form-card card shadow-sm"><div class="card-body p-4"><h1 class="h2 mb-3">Publish a new notice</h1>
+<form asp-action="Create" method="post">
+<partial name="_NoticeForm" model="Model" />
+<button class="btn btn-primary">Publish notice</button> <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+</form></div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
